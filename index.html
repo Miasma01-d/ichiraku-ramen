@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>一楽ラーメン — ICHIRAKU RAMEN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@300;500;900&family=Cinzel:wght@400;700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="loader" id="loader">
+  <div class="loader__inner">
+    <div class="loader__glyph">一楽</div>
+    <div class="loader__bar"><span id="loaderFill"></span></div>
+    <div class="loader__meta">
+      <span>暖め中 / HEATING UP</span>
+      <span id="loaderPct">00</span>
+    </div>
+  </div>
+</div>
+
+<!-- AMBIENT -->
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- STEAM -->
+<div class="steam-bed" aria-hidden="true"></div>
+<canvas class="steam" id="steamCanvas" aria-hidden="true"></canvas>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+
+<!-- CHROME -->
+<header class="chrome">
+  <div class="chrome__mark">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M50 12 A38 38 0 0 1 50 88 A19 19 0 0 1 50 50 A19 19 0 0 0 50 12Z" fill="currentColor" opacity=".9"/>
+      <circle cx="50" cy="31" r="6" fill="var(--ink)"/>
+      <circle cx="50" cy="69" r="6" fill="currentColor"/>
+    </svg>
+    <span>ICHIRAKU</span>
+  </div>
+  <nav class="chrome__nav">
+    <a href="#alley" data-jp="路地">ALLEY</a>
+    <a href="#bowl" data-jp="丼">BOWL</a>
+    <a href="#ingredients" data-jp="食材">INGREDIENTS</a>
+    <a href="#end" data-jp="終">END</a>
+  </nav>
+</header>
+
+<div class="rail rail--left" aria-hidden="true">
+  <span>夜の一楽 · MIDNIGHT RAMEN · 木ノ葉隠れの里</span>
+</div>
+<div class="rail rail--right" aria-hidden="true">
+  <span id="railScroll">SCROLL 000%</span>
+</div>
+
+<div class="hint" id="hint">
+  <span class="hint__jp">下へ</span>
+  <span class="hint__line"></span>
+  <span class="hint__en">SCROLL TO ENTER THE SHOP</span>
+</div>
+
+<main>
+
+<!-- ACT I — THE ALLEY -->
+<section class="scrub" id="alley">
+  <div class="scrub__sticky">
+    <canvas id="mainCanvas"></canvas>
+    <div class="scrub__glow" id="scrubGlow"></div>
+
+    <div class="phase" data-phase="0">
+      <h1 class="phase__jp">空腹</h1>
+      <p class="phase__en">HUNGER</p>
+      <p class="phase__sub">「腹が減っては戦はできぬ。」— Can't fight on an empty stomach.</p>
+    </div>
+    <div class="phase" data-phase="1">
+      <h2 class="phase__jp">匂い</h2>
+      <p class="phase__en">THE SCENT</p>
+      <p class="phase__sub">Tonkotsu broth, garlic, and something... neon.</p>
+    </div>
+    <div class="phase" data-phase="2">
+      <h2 class="phase__jp">光</h2>
+      <p class="phase__en">THE LANTERN</p>
+      <p class="phase__sub">A red glow cuts through the rain. You're close now.</p>
+    </div>
+    <div class="phase" data-phase="3">
+      <h2 class="phase__jp">一楽</h2>
+      <p class="phase__en">ICHIRAKU</p>
+      <p class="phase__sub">「いらっしゃいませ。」— Welcome. You made it.</p>
+    </div>
+
+    <div class="titleblock" id="titleblock">
+      <p class="titleblock__kicker">夜の一楽 · MIDNIGHT ICHIRAKU</p>
+      <h1 class="titleblock__jp">一楽<span>ラーメン</span></h1>
+      <p class="titleblock__en">I C H I R A K U &nbsp; R A M E N</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACT II — THE BOWL -->
+<section class="bowl-scrub" id="bowl">
+  <div class="bowl-scrub__sticky">
+    <canvas id="bowlCanvas"></canvas>
+    <div class="bowl-scrub__copy">
+      <h2>一杯<span>の</span>芸術</h2>
+      <p>The perfect bowl. Every element in harmony.</p>
+    </div>
+    <div class="bowl-scrub__frame" id="bowlFrame">FRAME 000 / 059</div>
+    <div class="bowl-scrub__hint">SCROLL TO WATCH IT COME TOGETHER</div>
+  </div>
+</section>
+
+<!-- ACT III — INGREDIENTS -->
+<section class="ingredients" id="ingredients">
+  <div class="ingredients__head">
+    <span class="eyebrow">食材 · THE ELEMENTS</span>
+    <h2>一杯を<br>構成するもの</h2>
+    <p>Each ingredient is a character in the story of the bowl. Hover to discover their secrets.</p>
+  </div>
+
+  <div class="ingredients__grid">
+    <!-- Noodles -->
+    <div class="ingredient-card" data-img="frames/ingredients/noodles.jpg">
+      <div class="ingredient-card__img" style="background-image:url('frames/ingredients/noodles.jpg')"></div>
+      <div class="ingredient-card__content">
+        <span class="ingredient-card__num">01 / 08</span>
+        <h3 class="ingredient-card__jp">麺</h3>
+        <p class="ingredient-card__ro">NOODLES</p>
+        <p class="ingredient-card__txt">Hand-pulled wheat noodles. Springy, chewy, and the backbone of every bowl.</p>
+        <div class="ingredient-card__foot"><i>手打ち</i> HAND-MADE DAILY</div>
+      </div>
+    </div>
+
+    <!-- Broth -->
+    <div class="ingredient-card" data-img="frames/ingredients/broth.jpg">
+      <div class="ingredient-card__img" style="background-image:url('frames/ingredients/broth.jpg')"></div>
+      <div class="ingredient-card__content">
+        <span class="ingredient-card__num">02 / 08</span>
+        <h3 class="ingredient-card__jp">出汁</h3>
+        <p class="ingredient-card__ro">BROTH</p>
+        <p class="ingredient-card__txt">Eighteen hours of pork bone, fire, and patience. The soul of the bowl.</p>
+        <div class="ingredient-card__foot"><i>豚骨</i> TONKOTSU</div>
+      </div>
+    </div>
+
+    <!-- Chashu -->
+    <div class="ingredient-card" data-img="frames/ingredients/chashu.jpg">
+      <div class="ingredient-card__img" style="background-image:url('frames/ingredients/chashu.jpg')"></div>
+      <div class="ingredient-card__content">
+        <span class="ingredient-card__num">03 / 08</span>
+        <h3 class="ingredient-card__jp">叉焼</h3>
+        <p class="ingredient-card__ro">CHASHU</p>
+        <p class="ingredient-card__txt">Slow-braised pork belly. Melts like a secret told in confidence.</p>
+        <div class="ingredient-card__foot"><i>角煮</i> SLOW-BRAISED</div>
+      </div>
+    </div>
+
+    <!-- Egg -->
+    <div class="ingredient-card" data-img="frames/ingredients/egg.jpg">
+      <div class="ingredient-card__img" style="background-image:url('frames/ingredients/egg.jpg')"></div>
+      <div class="ingredient-card__content">
+        <span class="ingredient-card__num">04 / 08</span>
+        <h3 class="ingredient-card__jp">味玉</h3>
+        <p class="ingredient-card__ro">SEASONED EGG</p>
+        <p class="ingredient-card__txt">Six-minute egg. Jammy yolk like liquid gold.</p>
+        <div class="ingredient-card__foot"><i>半熟</i> SOFT-BOILED</div>
+      </div>
+    </div>
+
+    <!-- Narutomaki -->
+    <div class="ingredient-card" data-img="frames/ingredients/narutomaki.jpg">
+      <div class="ingredient-card__img" style="background-image:url('frames/ingredients/narutomaki.jpg')"></div>
+      <div class="ingredient-card__content">
+        <span class="ingredient-card__num">05 / 08</span>
+        <h3 class="ingredient-card__jp">鳴門巻</h3>
+        <p class="ingredient-card__ro">NARUTOMAKI</p>
+        <p class="ingredient-card__txt">The swirl that started a ninja legend. A nod to the boy who never gave up.</p>
+        <div class="ingredient-card__foot"><i>渦巻</i> THE SPIRAL</div>
+      </div>
+    </div>
+
+    <!-- Green Onions -->
+    <div class="ingredient-card" data-img="frames/ingredients/onions.jpg">
+      <div class="ingredient-card__img" style="background-image:url('frames/ingredients/onions.jpg')"></div>
+      <div class="ingredient-card__content">
+        <span class="ingredient-card__num">06 / 08</span>
+        <h3 class="ingredient-card__jp">葱</h3>
+        <p class="ingredient-card__ro">GREEN ONIONS</p>
+        <p class="ingredient-card__txt">Sharp, fresh, and bright. Cuts through the richness like truth.</p>
+        <div class="ingredient-card__foot"><i>新鮮</i> FRESH CUT</div>
+      </div>
+    </div>
+
+    <!-- Bamboo -->
+    <div class="ingredient-card" data-img="frames/ingredients/bamboo.jpg">
+      <div class="ingredient-card__img" style="background-image:url('frames/ingredients/bamboo.jpg')"></div>
+      <div class="ingredient-card__content">
+        <span class="ingredient-card__num">07 / 08</span>
+        <h3 class="ingredient-card__jp">麺麻</h3>
+        <p class="ingredient-card__ro">BAMBOO SHOOTS</p>
+        <p class="ingredient-card__txt">Fermented and seasoned. Crunchy resilience in a soft world.</p>
+        <div class="ingredient-card__foot"><i>発酵</i> FERMENTED</div>
+      </div>
+    </div>
+
+    <!-- Nori -->
+    <div class="ingredient-card" data-img="frames/ingredients/nori.jpg">
+      <div class="ingredient-card__img" style="background-image:url('frames/ingredients/nori.jpg')"></div>
+      <div class="ingredient-card__content">
+        <span class="ingredient-card__num">08 / 08</span>
+        <h3 class="ingredient-card__jp">海苔</h3>
+        <p class="ingredient-card__ro">NORI</p>
+        <p class="ingredient-card__txt">Ocean in a sheet. Umami that whispers of the sea.</p>
+        <div class="ingredient-card__foot"><i>海藻</i> SEAWEED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="end">
+  <div class="footer__big">また来いよ</div>
+  <div class="footer__row">
+    <span>COME BACK ANYTIME</span>
+    <span>一楽ラーメン · MIDNIGHT ICHIRAKU</span>
+    <span>「ごちそうさまでした。」</span>
+  </div>
+</footer>
+
+</main>
+<!-- INGREDIENT MODAL -->
+<div class="ingredient-modal" id="ingredientModal" aria-hidden="true">
+  <div class="ingredient-modal__backdrop" id="modalBackdrop"></div>
+  <div class="ingredient-modal__content">
+    <button class="ingredient-modal__close" id="modalClose" aria-label="Close">✕</button>
+    <div class="ingredient-modal__img" id="modalImg"></div>
+    <div class="ingredient-modal__info">
+      <span class="ingredient-modal__num" id="modalNum">01 / 08</span>
+      <h2 class="ingredient-modal__jp" id="modalJp">麺</h2>
+      <p class="ingredient-modal__ro" id="modalRo">NOODLES</p>
+      <p class="ingredient-modal__desc" id="modalDesc">Description here.</p>
+      <div class="ingredient-modal__fact" id="modalFact">
+        <strong>DID YOU KNOW?</strong>
+        <span>Fun fact here.</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
